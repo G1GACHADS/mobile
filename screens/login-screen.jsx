@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import { Text, View, TextInput, StyleSheet, Button } from "react-native";
+import { TouchableOpacity, Text, View, TextInput, StyleSheet, Button, Link } from "react-native";
 
 export const LoginScreen = ({ navigation }) => {
   const [error, setError] = useState({
@@ -56,6 +56,9 @@ export const LoginScreen = ({ navigation }) => {
             signin();
           }}
         ></Button>
+        <TouchableOpacity onPress={()=>navigation.push("register")}>
+          <Text style={styles.register}>Register</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -79,5 +82,9 @@ const styles = StyleSheet.create({
   error: {
     color: "red",
     marginLeft: 20,
+  },
+  register: {
+    marginTop: 10,
+    color: "red",
   },
 });
