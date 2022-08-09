@@ -2,16 +2,16 @@ import { useState } from "react";
 import { Text, View, TextInput, Button } from "react-native";
 
 import { apiBaseURL } from "../constants/api";
-export const RegisterScreen = () => {
+export const RegisterScreen = ({ navigation }) => {
   return (
     <View style={{ color: "blue", left: 20, top: 20 }}>
       <Text style={{ color: "blue", fontSize: 25 }}>Register Screen</Text>
-      <FormInput></FormInput>
+      <FormInput navigation={navigation}></FormInput>
     </View>
   );
 };
 
-const FormInput = ({navigation}) => {
+const FormInput = ({ navigation }) => {
   const [data, setData] = useState({
     email: "",
     phoneNumber: "",
@@ -20,8 +20,8 @@ const FormInput = ({navigation}) => {
   });
 
   const [error, setError] = useState({
-    message: ""
-  })
+    message: "",
+  });
 
   const register = async () => {
     try {
@@ -33,17 +33,17 @@ const FormInput = ({navigation}) => {
       const response = await fetch(`${apiBaseURL}/account/register`, {
         method: "POST",
         headers: {
-          "Content-Type":
-            "multipart/form-data; boundary=---011000010111000001101001",
+          "Content-Type": "multipart/form-data",
         },
-        body:form
+        body: form,
       });
-      const json=await response.json()
-      const errorCode = json.data['error-code']
-      if (errorCode==='2'){
-        setError({message:json.data['message']})
+      const json = await response.json();
+      const errorCode = json["error-code"];
+      if (errorCode === "2") {
+        setError({ message: json["message"] });
+      } else {
+        navigation.push("login");
       }
-      else {navigation.push('login')}
     } catch (error) {}
   };
 
