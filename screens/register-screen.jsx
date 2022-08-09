@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Text, View, TextInput, Button } from "react-native";
+import { createContext, useContext, useState } from "react";
+import { TouchableOpacity, Text, View, TextInput, StyleSheet, Button, Link } from "react-native";
 
 import { apiBaseURL } from "../constants/api";
 export const RegisterScreen = ({ navigation }) => {
@@ -42,7 +42,7 @@ const FormInput = ({ navigation }) => {
       if (errorCode === "2") {
         setError({ message: json["message"] });
       } else {
-        navigation.push("login");
+        navigation.push("destinations");
       }
     } catch (error) {}
   };
@@ -86,6 +86,9 @@ const FormInput = ({ navigation }) => {
         secureTextEntry
       ></TextInput>
       <Button title="Submit" color="blue" onPress={() => register()}></Button>
+      <TouchableOpacity onPress={()=>navigation.push("login")}>
+          <Text style={{fontSize: 20, color: 'blue'}}>login</Text>
+        </TouchableOpacity>
     </View>
   );
 };
